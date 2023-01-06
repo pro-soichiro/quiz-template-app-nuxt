@@ -32,6 +32,7 @@
 
 <script>
 export default {
+  // name: 'HeaderLayout',
   data() {
     return {
       drawer: false,
