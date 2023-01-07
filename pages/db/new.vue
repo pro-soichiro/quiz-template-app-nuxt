@@ -13,7 +13,7 @@
                 name="問題文"
                 rules="required"
               >
-                <v-text-field
+                <v-textarea
                   v-model="question.content"
                   label="問題"
                   :rules="errors"

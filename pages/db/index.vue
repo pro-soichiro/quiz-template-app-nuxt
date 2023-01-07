@@ -20,7 +20,7 @@
           <v-subheader>問題</v-subheader>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>{{  question.content }}</v-list-item-title>
+              <p>{{  question.content }}</p>
             </v-list-item-content>
           </v-list-item>
         </v-list>
