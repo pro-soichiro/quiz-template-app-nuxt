@@ -89,4 +89,8 @@ sw.*
 # Vim swap files
 *.swp
 
+# apikey etc...
 plugins/firebase.js
+
+# firevaseのキャッシュファイル
+.firebase
