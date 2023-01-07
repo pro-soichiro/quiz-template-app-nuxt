@@ -18,7 +18,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" nuxt to="/auth/signup"> signup </v-btn>
+          <v-btn color="success" nuxt to="/auth/login"> ログイン </v-btn>
+          <v-btn color="primary" nuxt to="/auth/signup"> 新規登録 </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
