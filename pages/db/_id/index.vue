@@ -1,21 +1,9 @@
 <template>
   <div>
     <v-row class="ma-2">
-      <div class="text-h5">Database</div>
-      <div class="text-h6 ml-3">{{ size }}件</div>
-      <v-spacer></v-spacer>
-      <v-btn dark class="brown lighten-1" to="/db/new">
-        <v-icon left>
-          mdi-folder-plus-outline
-        </v-icon>
-        new</v-btn>
+      <div class="text-h5">Show Quiz</div>
     </v-row>
-    <div v-show="!size">クイズはありません。</div>
-    <div
-      v-for="(question, index) in questions" :key="index"
-      class="my-1"
-    >
-      <v-card>
+    <v-card>
         <v-list>
           <v-subheader>問題</v-subheader>
           <v-list-item>
@@ -60,28 +48,54 @@
           <v-btn
             dark
             color="green lighten-1"
-            @click="showQuiz(question.id)"
+            @click="editQuiz"
           >
             <v-icon left>
-              mdi-eye
+              mdi-pencil-outline
             </v-icon>
-            show
+            edit
+          </v-btn>
+          <v-btn
+            dark
+            color="deep-orange lighten-1"
+            @click="deleteQuiz"
+          >
+            <v-icon left>
+              mdi-trash-can-outline
+            </v-icon>
+            delete
           </v-btn>
         </v-card-actions>
       </v-card>
-    </div>
   </div>
 </template>
 
 <script>
-import { getFirestore, collection, getDocs } from 'firebase/firestore'
+import { getFirestore, doc, getDoc, deleteDoc } from 'firebase/firestore'
 
 export default {
   data() {
     return {
-      title: 'Database',
-      questions: [],
-      size: 0,
+      title: 'Edit',
+      id: '',
+      question: {
+        content: '',
+        answer: 0,
+        choices: {
+          choice0: {
+            content: '',
+          },
+          choice1: {
+            content: '',
+          },
+          choice2: {
+            content: '',
+          },
+          choice3: {
+            content: '',
+          },
+        },
+      }
     }
   },
   head() {
@@ -90,21 +104,25 @@ export default {
     }
   },
   async created() {
-    try {
-      const db = getFirestore(this.$firebase)
-      const querySnapshot = await getDocs(collection(db, 'questions'))
-      querySnapshot.forEach((doc) => {
-        // this.questions.push(doc.data())
-        this.questions.push({ ...doc.data(), id: doc.id })
-      })
-      this.size = querySnapshot.size
-    } catch (e) {
-      alert('error:', e)
-    }
+    const db = getFirestore(this.$firebase)
+    this.id = this.$route.params.id
+    const docRef = doc(db, "questions", this.id);
+    const docSnap = await getDoc(docRef);
+    this.question = { ...docSnap.data(), id: this.id }
   },
   methods: {
-    showQuiz(id) {
-      this.$router.push(`/db/${id}`)
+    editQuiz() {
+      this.$router.push(`/db/${this.id}/edit`)
+    },
+    async deleteQuiz() {
+      const db = getFirestore(this.$firebase)
+      await deleteDoc(doc(db, 'questions', this.id))
+        .then(()=> {
+          this.$router.push('/db')
+        })
+        .catch( e => {
+          alert(e)
+        })
     },
   },
 }

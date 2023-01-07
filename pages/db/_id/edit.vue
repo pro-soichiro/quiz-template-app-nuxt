@@ -93,9 +93,9 @@
             @click="update"
           >
           <v-icon left>
-            mdi-send
+            mdi-update
           </v-icon>
-          create</v-btn>
+          update</v-btn>
         </v-card-actions>
       </ValidationObserver>
     </v-card>
@@ -109,6 +109,7 @@ export default {
   data() {
     return {
       title: 'Edit',
+      id: '',
       question: {
         content: '',
         answer: 0,
@@ -136,18 +137,19 @@ export default {
   },
   async created() {
     const db = getFirestore(this.$firebase)
-    const docRef = doc(db, "questions", this.$route.params.id);
+    this.id = this.$route.params.id
+    const docRef = doc(db, "questions", this.id);
     const docSnap = await getDoc(docRef);
-    this.question = { ...docSnap.data() }
+    this.question = { ...docSnap.data(), id: this.id }
   },
   methods: {
     async update() {
       try {
         const db = getFirestore(this.$firebase)
-        const docRef = doc(db, "questions", this.$route.params.id)
+        const docRef = doc(db, "questions", this.id)
         await updateDoc(docRef, {...this.question})
           .then(() => {
-            this.$router.push('/db')
+            this.$router.push(`/db/${this.id}`)
           })
           .catch((e) => {
             alert('error:', e.message)
