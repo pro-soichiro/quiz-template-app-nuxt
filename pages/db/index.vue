@@ -2,6 +2,7 @@
   <div>
     <v-row class="ma-2">
       <div class="text-h5">Database</div>
+      <div class="text-h6 ml-3">{{ size }}件</div>
       <v-spacer></v-spacer>
       <v-btn dark class="brown lighten-1" to="/db/new">
         <v-icon left>
@@ -9,6 +10,7 @@
         </v-icon>
         new</v-btn>
     </v-row>
+    <div v-show="!size">クイズはありません。</div>
     <div
       v-for="(question, index) in questions" :key="index"
       class="my-1"
@@ -58,6 +60,7 @@
           <v-btn
             dark
             color="green lighten-1"
+            @click="editQuiz(question.id)"
           >
             <v-icon left>
               mdi-pencil-outline
@@ -67,6 +70,7 @@
           <v-btn
             dark
             color="deep-orange lighten-1"
+            @click="deleteQuiz(question.id, question.content)"
           >
             <v-icon left>
               mdi-trash-can-outline
@@ -80,13 +84,14 @@
 </template>
 
 <script>
-import { getFirestore, collection, getDocs } from 'firebase/firestore'
+import { getFirestore, collection, getDocs, doc, deleteDoc } from 'firebase/firestore'
 
 export default {
   data() {
     return {
       title: 'Database',
       questions: [],
+      size: 0,
     }
   },
   head() {
@@ -99,11 +104,28 @@ export default {
       const db = getFirestore(this.$firebase)
       const querySnapshot = await getDocs(collection(db, 'questions'))
       querySnapshot.forEach((doc) => {
-        this.questions.push(doc.data())
+        // this.questions.push(doc.data())
+        this.questions.push({ ...doc.data(), id: doc.id })
       })
+      this.size = querySnapshot.size
     } catch (e) {
       alert('error:', e)
     }
+  },
+  methods: {
+    editQuiz(id) {
+      this.$router.push({ path: `/db/${id}/edit` })
+    },
+    async deleteQuiz(id, content) {
+      const db = getFirestore(this.$firebase)
+      await deleteDoc(doc(db, 'questions', id))
+        .then(()=> {
+          location.reload();
+        })
+        .catch( e => {
+          alert(e)
+        })
+    },
   },
 }
 </script>
