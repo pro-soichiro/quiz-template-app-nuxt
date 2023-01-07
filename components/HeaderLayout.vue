@@ -22,13 +22,13 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar fixed app color="green lighten-1">
+    <v-app-bar fixed app dark color="green lighten-1">
       <div v-show="isLoggedIn">
-        <v-app-bar-nav-icon class="white--text" @click.stop="drawer = !drawer" />
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       </div>
-      <v-toolbar-title class="white--text">{{ title }}</v-toolbar-title>
+      <v-toolbar-title >{{ title }}</v-toolbar-title>
       <v-spacer />
-      <div v-show="isLoggedIn" class="white--text mr-1">
+      <div v-show="isLoggedIn" class="mr-1">
         {{ email }}
       </div>
     </v-app-bar>

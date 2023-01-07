@@ -1,10 +1,8 @@
 <template>
   <div>
-    <h1>クイズ 新規作成</h1>
-    <v-btn
-      color="primary"
-      to="/db"
-    >一覧</v-btn>
+    <v-row class="ma-2">
+      <div class="text-h5">Create Quiz</div>
+    </v-row>
     <v-card>
       <v-card-text>
         <v-row>
@@ -12,36 +10,41 @@
             <v-text-field
               v-model="question.content"
               label="問題"
+              :rules="[rules.required]"
             />
           </v-col>
         </v-row>
         <v-radio-group v-model="question.answer">
           <div class="d-flex">
-            <v-radio value="choice1" />
+            <v-radio :value='0' />
+            <v-text-field
+              v-model="question.choices.choice0.content"
+              label="選択肢1"
+              :rules="[rules.required]"
+            />
+          </div>
+          <div class="d-flex">
+            <v-radio :value='1' />
             <v-text-field
               v-model="question.choices.choice1.content"
-              label="選択肢1"
+              label="選択肢2"
+              :rules="[rules.required]"
             />
           </div>
           <div class="d-flex">
-            <v-radio value="choice2" />
+            <v-radio :value='2' />
             <v-text-field
               v-model="question.choices.choice2.content"
-              label="選択肢2"
+              label="選択肢3"
+              :rules="[rules.required]"
             />
           </div>
           <div class="d-flex">
-            <v-radio value="choice3" />
+            <v-radio :value='3' />
             <v-text-field
               v-model="question.choices.choice3.content"
-              label="選択肢3"
-            />
-          </div>
-          <div class="d-flex">
-            <v-radio value="choice4" />
-            <v-text-field
-              v-model="question.choices.choice4.content"
               label="選択肢4"
+              :rules="[rules.required]"
             />
           </div>
         </v-radio-group>
@@ -49,10 +52,15 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
-          color="blue-grey"
-          class="ma-2 white--text"
+          dark
+          color="brown lighten-1"
+          class="ma-2"
           @click="create"
-        >追加</v-btn>
+        >
+        <v-icon left>
+          mdi-send
+        </v-icon>
+        create</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -64,11 +72,14 @@ import { getFirestore, collection, addDoc } from 'firebase/firestore'
 export default {
   data() {
     return {
-      title: 'クイズ 新規作成',
+      title: 'Create',
       question: {
         content: '',
-        answer: 'choice1',
+        answer: 0,
         choices: {
+          choice0: {
+            content: '',
+          },
           choice1: {
             content: '',
           },
@@ -78,16 +89,16 @@ export default {
           choice3: {
             content: '',
           },
-          choice4: {
-            content: '',
-          },
-        }
+        },
+      },
+      rules: {
+        required: value => !!value || 'Required.',
       },
     }
   },
   head() {
     return {
-      title: this.title
+      title: this.title,
     }
   },
   methods: {
@@ -95,17 +106,15 @@ export default {
       try {
         const db = getFirestore(this.$firebase)
         await addDoc(collection(db, 'questions'), {
-          ...this.question
+          ...this.question,
         })
         this.$router.push('/db')
-      } catch(e) {
+      } catch (e) {
         alert('error:', e)
       }
-    }
+    },
   },
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

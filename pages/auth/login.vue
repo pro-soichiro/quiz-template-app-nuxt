@@ -1,41 +1,33 @@
 <template>
   <div>
-    <h1>ログイン</h1>
-    <v-row>
-      <v-col cols="6">
-        <v-text-field
-          v-model="email"
-          label="メールアドレス"
-        />
-        <v-text-field
-          v-model="password"
-          label="パスワード"
-          :append-icon="passwordDisplay ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="passwordDisplay ? 'text' : 'password'"
-          @click:append="passwordDisplay = !passwordDisplay"
-        />
-      </v-col>
+    <v-row class="ma-2">
+      <div class="text-h5">Log In</div>
     </v-row>
     <v-row>
-      <v-col cols="3">
-        <v-btn
-          color="primary"
-          @click="login"
-        >ログイン</v-btn>
-      </v-col>
-      <v-col cols="3">
-        <v-btn
-          text
-          color="secondary"
-          to="./signup"
-        >ユーザー登録</v-btn>
+      <v-col sm="8">
+        <v-card>
+          <v-card-text>
+            <v-text-field v-model="email" label="メールアドレス" />
+            <v-text-field
+              v-model="password"
+              label="パスワード"
+              :append-icon="passwordDisplay ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="passwordDisplay ? 'text' : 'password'"
+              @click:append="passwordDisplay = !passwordDisplay"
+            />
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="brown lighten-1 white--text" @click="login">ログイン</v-btn>
+            <v-btn text color="secondary" to="./signup">ユーザー登録</v-btn>
+          </v-card-actions>
+        </v-card>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -52,15 +44,13 @@ export default {
   },
   methods: {
     login() {
-      this.$store.dispatch('auth/login',{
+      this.$store.dispatch('auth/login', {
         email: this.email,
         password: this.password,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

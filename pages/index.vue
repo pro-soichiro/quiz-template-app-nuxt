@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
+    <v-col cols="12" sm="8">
       <v-card>
         <v-card-title class="headline">
           Quiz Template App - Nuxt
@@ -18,8 +18,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="success" nuxt to="/auth/login"> ログイン </v-btn>
-          <v-btn color="primary" nuxt to="/auth/signup"> 新規登録 </v-btn>
+          <v-btn color="brown lighten-1 white--text" nuxt to="/auth/login"> ログイン </v-btn>
+          <v-btn color="blue-grey lighten-1 white--text" nuxt to="/auth/signup"> 新規登録 </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>

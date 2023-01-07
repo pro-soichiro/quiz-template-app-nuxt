@@ -1,34 +1,38 @@
 <template>
   <div>
-    <h1>新規登録</h1>
-    <v-row>
-      <v-col cols="6">
-        <v-text-field
-          v-model="email"
-          label="メールアドレス"
-        />
-        <v-text-field
-          v-model="password"
-          label="パスワード"
-          :append-icon="passwordDisplay ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="passwordDisplay ? 'text' : 'password'"
-          @click:append="passwordDisplay = !passwordDisplay"
-        />
-      </v-col>
+    <v-row class="ma-2">
+      <div class="text-h5">Sign Up</div>
     </v-row>
     <v-row>
-      <v-col cols="3">
-        <v-btn
-          color="primary"
-          @click="signUp"
-        >ユーザー登録</v-btn>
-      </v-col>
-      <v-col cols="3">
-        <v-btn
-          text
-          color="secondary"
-          to="./login"
-        >ログインページ</v-btn>
+      <v-col sm="8">
+        <v-card>
+          <v-card-text>
+            <v-text-field
+              v-model="email"
+              label="メールアドレス"
+            />
+            <v-text-field
+              v-model="password"
+              label="パスワード"
+              :append-icon="passwordDisplay ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="passwordDisplay ? 'text' : 'password'"
+              @click:append="passwordDisplay = !passwordDisplay"
+            />
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              dark
+              color="brown lighten-1"
+              @click="signUp"
+            >ユーザー登録</v-btn>
+            <v-btn
+              text
+              color="secondary"
+              to="./login"
+            >ログイン</v-btn>
+          </v-card-actions>
+        </v-card>
       </v-col>
     </v-row>
   </div>
@@ -40,7 +44,7 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 export default {
   data() {
     return {
-      title: '新規登録',
+      title: 'Sign Up',
       email: '',
       password: '',
       passwordDisplay: false,
