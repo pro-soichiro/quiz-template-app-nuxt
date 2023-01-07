@@ -48,6 +48,11 @@ export default {
           to: '/',
         },
         {
+          icon: 'mdi-database',
+          title: 'Quiz Database',
+          to: '/db',
+        },
+        {
           icon: 'mdi-logout',
           title: 'Log Out',
           to: '/auth/logout',
