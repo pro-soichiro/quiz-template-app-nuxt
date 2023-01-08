@@ -57,9 +57,13 @@ export default {
     signUp() {
       const auth = getAuth(this.$firebase)
       createUserWithEmailAndPassword(auth, this.email, this.password)
-        .then( userCredential => {
-          console.log( userCredential.user )
-          console.log('success')
+        .then(() => {
+          this.$router.push('/quiz')
+          this.$store.dispatch('message/setFlashMessage', {
+            content: 'アカウント登録が完了し、ログインしました',
+            timeout: 3000,
+            type: 'info',
+        }, {root: true})
         })
         .catch(e => {
           alert(e.message)
