@@ -4,7 +4,7 @@
           <v-subheader>問題</v-subheader>
           <v-list-item>
             <v-list-item-content>
-              <p>{{  content }}</p>
+              <p class="question">{{ content }}</p>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -65,6 +65,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+p.question {
+  white-space: pre-wrap;
+}
 </style>
