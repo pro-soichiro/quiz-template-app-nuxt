@@ -1,8 +1,6 @@
 <template>
   <div>
-    <v-row class="ma-2">
-      <div class="text-h5">Log In</div>
-    </v-row>
+    <TitleLayout :title="title" />
     <v-row>
       <v-col sm="8">
         <v-card>

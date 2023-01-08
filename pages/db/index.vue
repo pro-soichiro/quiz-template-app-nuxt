@@ -1,7 +1,6 @@
 <template>
   <div>
-    <v-row class="ma-2">
-      <div class="text-h5">Database</div>
+    <TitleLayout :title="title" >
       <div class="text-h6 ml-3">{{ size }}件</div>
       <v-spacer></v-spacer>
       <v-btn dark class="brown lighten-1" to="/db/new">
@@ -9,66 +8,25 @@
           mdi-folder-plus-outline
         </v-icon>
         new</v-btn>
-    </v-row>
+    </TitleLayout>
     <div v-show="!size">クイズはありません。</div>
     <div
       v-for="(question, index) in questions" :key="index"
       class="my-1"
     >
-      <v-card>
-        <v-list>
-          <v-subheader>問題</v-subheader>
-          <v-list-item>
-            <v-list-item-content>
-              <p>{{  question.content }}</p>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-
-        <v-divider></v-divider>
-
-        <v-list disabled>
-          <v-subheader>選択肢</v-subheader>
-          <v-list-item-group
-            v-model="question.answer"
-            color="red"
-          >
-            <v-list-item>
-              <v-list-item-content>
-                {{ question.choices.choice0.content }}
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-content>
-                {{ question.choices.choice1.content }}
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-content>
-                {{ question.choices.choice2.content }}
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-content>
-                {{ question.choices.choice3.content }}
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            dark
-            color="green lighten-1"
-            @click="showQuiz(question.id)"
-          >
-            <v-icon left>
-              mdi-eye
-            </v-icon>
-            show
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <QuizCard v-bind="question">
+        <v-spacer></v-spacer>
+        <v-btn
+          dark
+          color="green lighten-1"
+          @click="showQuiz(question.id)"
+        >
+          <v-icon left>
+            mdi-eye
+          </v-icon>
+          show
+        </v-btn>
+      </QuizCard>
     </div>
   </div>
 </template>
