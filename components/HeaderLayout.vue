@@ -37,15 +37,20 @@
 
 <script>
 export default {
-  // name: 'HeaderLayout',
+  name: 'HeaderLayout',
   data() {
     return {
       drawer: false,
       items: [
         {
           icon: 'mdi-home',
-          title: 'Welcome',
-          to: '/',
+          title: 'My Page',
+          to: '/mypage',
+        },
+        {
+          icon: 'mdi-head-question',
+          title: 'Quiz',
+          to: '/quiz',
         },
         {
           icon: 'mdi-database',

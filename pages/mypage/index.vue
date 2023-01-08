@@ -1,6 +1,8 @@
 <template>
   <div>
     <TitleLayout :title="title" />
+    <div>email: {{ email }}</div>
+    <div>score: {{ score }}</div>
   </div>
 </template>
 
@@ -8,13 +10,19 @@
 export default {
   data() {
     return {
-      title: 'クイズ',
+      title: 'My Page',
+      score: 0,
     }
   },
   head() {
     return {
       title: this.title,
     }
+  },
+  computed: {
+    email() {
+      return this.$store.getters['auth/getEmail']
+    },
   }
 }
 </script>
