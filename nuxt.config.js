@@ -28,6 +28,7 @@ export default {
   plugins: [
     '@/plugins/firebase.js',
     '@/plugins/vee-validate.js',
+    '@/plugins/lodash.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
