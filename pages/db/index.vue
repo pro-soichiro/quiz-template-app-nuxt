@@ -52,12 +52,11 @@ export default {
       const db = getFirestore(this.$firebase)
       const querySnapshot = await getDocs(collection(db, 'questions'))
       querySnapshot.forEach((doc) => {
-        // this.questions.push(doc.data())
         this.questions.push({ ...doc.data(), id: doc.id })
       })
       this.size = querySnapshot.size
     } catch (e) {
-      alert('error:', e)
+      alert('error:' + e)
     }
   },
   methods: {
