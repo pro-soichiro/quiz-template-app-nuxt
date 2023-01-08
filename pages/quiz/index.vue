@@ -4,7 +4,7 @@
     <v-select
       v-model="numberOfQuestion"
       label="問題数"
-      :items="_.range(1, maxNumberOfQuestion)"
+      :items="_.range(1, maxNumberOfQuestion + 1)"
     ></v-select>
     <v-btn @click="startQuiz">start</v-btn>
   </div>
