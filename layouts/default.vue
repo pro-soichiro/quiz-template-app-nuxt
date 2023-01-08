@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <HeaderLayout />
+    <MessageLayout />
     <v-main>
       <v-container>
         <Nuxt />

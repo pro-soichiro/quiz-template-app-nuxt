@@ -141,9 +141,14 @@ export default {
         await addDoc(collection(db, 'questions'), {
           ...this.question,
         })
+        this.$store.dispatch('message/setFlashMessage', {
+          content: '作成しました',
+          timeout: 3000,
+          type: 'success',
+        })
         this.$router.push('/db')
       } catch (e) {
-        alert('error:', e)
+        alert('error: ' + e)
       }
     },
   },

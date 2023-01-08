@@ -149,13 +149,18 @@ export default {
         const docRef = doc(db, "questions", this.id)
         await updateDoc(docRef, {...this.question})
           .then(() => {
+            this.$store.dispatch('message/setFlashMessage', {
+              content: '更新しました',
+              timeout: 3000,
+              type: 'success',
+            })
             this.$router.push(`/db/${this.id}`)
           })
           .catch((e) => {
-            alert('error:', e.message)
+            alert('error: ' + e.message)
           })
       } catch (e) {
-        alert('error:', e.message)
+        alert('error: ' + e.message)
       }
     }
   },

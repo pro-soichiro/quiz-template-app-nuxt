@@ -158,6 +158,11 @@ export default {
       const db = getFirestore(this.$firebase)
       await deleteDoc(doc(db, 'questions', this.id))
         .then(()=> {
+          this.$store.dispatch('message/setFlashMessage', {
+            content: '削除しました',
+            timeout: 3000,
+            type: 'success',
+          })
           this.$router.push('/db')
         })
         .catch( e => {

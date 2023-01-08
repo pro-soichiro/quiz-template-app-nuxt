@@ -19,7 +19,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async login({commit}, payload) {
+  async login({commit, dispatch}, payload) {
     const auth = getAuth(this.$firebase)
     await signInWithEmailAndPassword(auth, payload.email, payload.password)
       .then( userCredential => {
@@ -27,12 +27,17 @@ export const actions = {
         commit('setUserUid', userCredential.user.uid)
         commit('setEmail', userCredential.user.email)
         this.$router.push('/quiz')
+        dispatch('message/setFlashMessage', {
+          content: 'ログインしました',
+          timeout: 3000,
+          type: 'info',
+        }, {root: true})
       })
       .catch(e => {
         alert(e.message)
       })
   },
-  async logout({commit}) {
+  async logout({commit, dispatch}) {
     const auth = getAuth(this.$firebase)
     await signOut(auth)
       .then(()=> {
@@ -40,6 +45,11 @@ export const actions = {
         commit('setUserUid', '')
         commit('setEmail', '')
         this.$router.push('/auth/login')
+        dispatch('message/setFlashMessage', {
+          content: 'ログアウトしました',
+          timeout: 3000,
+          type: 'info',
+        }, {root: true})
       })
       .catch(e => {
         alert(e.message)
