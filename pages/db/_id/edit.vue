@@ -1,6 +1,13 @@
 <template>
   <div>
-    <TitleLayout :title="title" />
+    <TitleLayout :title="title">
+      <v-spacer></v-spacer>
+      <v-btn dark class="brown lighten-1" to="/db">
+        <v-icon left>
+          mdi-database
+        </v-icon>
+        database</v-btn>
+    </TitleLayout>
     <QuizForm :question="question" @question="question = $event">
       <template #default="slotProps">
         <v-spacer></v-spacer>
