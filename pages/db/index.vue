@@ -32,14 +32,11 @@
 </template>
 
 <script>
-import { getFirestore, collection, getDocs } from 'firebase/firestore'
 
 export default {
   data() {
     return {
       title: 'Database',
-      questions: [],
-      size: 0,
     }
   },
   head() {
@@ -47,19 +44,28 @@ export default {
       title: this.title,
     }
   },
-  async created() {
-    try {
-      const db = getFirestore(this.$firebase)
-      const querySnapshot = await getDocs(collection(db, 'questions'))
-      querySnapshot.forEach((doc) => {
-        this.questions.push({ ...doc.data(), id: doc.id })
-      })
-      this.size = querySnapshot.size
-    } catch (e) {
-      alert('error:' + e)
-    }
+  computed: {
+    questions() {
+      return this.$store.getters['question/getQuestions']
+    },
+    size() {
+      return this.$store.getters['question/getSize']
+    },
+    userUid() {
+      return this.$store.getters['auth/getUserUid']
+    },
+  },
+  created() {
+    this.$store.watch((state) => state.auth.userUid,
+    (userUid) => this.fetchQuestions(userUid))
+  },
+  mounted() {
+    this.fetchQuestions(this.userUid)
   },
   methods: {
+    fetchQuestions(userUid) {
+      this.$store.dispatch('question/fetchQuestions', { userUid })
+    },
     showQuiz(id) {
       this.$router.push(`/db/${id}`)
     },

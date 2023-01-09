@@ -68,7 +68,7 @@ export default {
     this.id = this.$route.params.id
     const docRef = doc(db, "questions", this.id);
     const docSnap = await getDoc(docRef);
-    this.question = { ...docSnap.data(), id: this.id }
+    this.question = { ...docSnap.data() }
   },
   methods: {
     async update() {

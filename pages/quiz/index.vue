@@ -32,6 +32,8 @@ import {
   getFirestore,
   collection,
   getDocs,
+  query,
+  where,
 } from 'firebase/firestore'
 
 export default {
@@ -48,25 +50,43 @@ export default {
       title: this.title,
     }
   },
-  async created() {
-    try {
-      const db = getFirestore(this.$firebase)
-      const questionsRef = collection(db, 'questions');
-
-      const querySnapshot = await getDocs(questionsRef)
-
-      querySnapshot.forEach((doc) => {
-        this.questions.push({...doc.data(), id: doc.id })
-      })
-      this.maxNumberOfQuestion = querySnapshot.size
-
-      // eslint-disable-next-line no-undef
-      this.questions = _.shuffle(this.questions)
-    } catch (e) {
-      alert('error:' + e)
-    }
+  computed: {
+    userUid() {
+      return this.$store.getters['auth/getUserUid']
+    },
+  },
+  created() {
+    this.$store.watch((state) => state.auth.userUid,
+    (userUid) => this.fetchQuestions(userUid))
+  },
+  mounted() {
+    this.fetchQuestions(this.userUid)
   },
   methods: {
+    async fetchQuestions(userUid) {
+      try {
+        const db = getFirestore(this.$firebase)
+        const questionsRef = collection(db, 'questions');
+
+        const q = query(
+          questionsRef,
+          where('userUid', '==', userUid),
+        )
+
+        const querySnapshot = await getDocs(q)
+
+        querySnapshot.forEach((doc) => {
+          this.questions.push({...doc.data()})
+        })
+        this.maxNumberOfQuestion = querySnapshot.size
+
+        // eslint-disable-next-line no-undef
+        this.questions = _.shuffle(this.questions)
+      } catch (e) {
+        alert(e)
+      }
+
+    },
     startQuiz() {
       this.$store.dispatch('quiz/reset')
       this.questions.forEach(q => {

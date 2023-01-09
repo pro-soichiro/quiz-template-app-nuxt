@@ -20,15 +20,15 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-              dark
-              color="brown lighten-1"
-              @click="signUp"
-            >ユーザー登録</v-btn>
-            <v-btn
               text
               color="secondary"
               to="./login"
             >ログイン</v-btn>
+            <v-btn
+              dark
+              color="brown lighten-1"
+              @click="signUp"
+            >ユーザー登録</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>

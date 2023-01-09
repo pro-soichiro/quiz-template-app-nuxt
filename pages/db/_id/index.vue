@@ -103,6 +103,7 @@ export default {
             content: '',
           },
         ],
+        createdAt: '',
       }
     }
   },

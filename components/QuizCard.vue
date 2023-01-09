@@ -1,7 +1,13 @@
 <template>
   <v-card>
     <v-list>
-      <v-subheader>問題</v-subheader>
+      <v-list-item>
+        <v-subheader>問題</v-subheader>
+        <v-spacer></v-spacer>
+        <v-subheader>
+          {{ typeof createdAt === 'object' ? createdAt.toDate().toLocaleString() : createdAt }}
+        </v-subheader>
+      </v-list-item>
       <v-list-item>
         <v-list-item-content>
           <p class="question">{{ content }}</p>
@@ -45,9 +51,13 @@ export default {
       required: true,
     },
     choices: {
-      type: Object,
+      type: Array,
       required: true,
-    }
+    },
+    createdAt: {
+      type: [Object, String],
+      required: true,
+    },
   },
 }
 </script>

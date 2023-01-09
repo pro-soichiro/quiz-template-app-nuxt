@@ -6,7 +6,7 @@
     elevation="18"
     :color="type"
   >
-    {{ message }}
+    {{ content }}
   </v-snackbar>
 </template>
 
@@ -14,6 +14,9 @@
 export default {
   computed: {
     message() {
+      return this.$store.getters['message/getMessage']
+    },
+    content() {
       return this.$store.getters['message/getContent']
     },
     type() {

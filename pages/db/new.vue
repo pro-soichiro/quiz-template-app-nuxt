@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { getFirestore, collection, addDoc } from 'firebase/firestore'
+import { getFirestore, collection, setDoc, doc} from 'firebase/firestore'
 
 export default {
   data() {
@@ -63,13 +63,24 @@ export default {
       title: this.title,
     }
   },
+  computed: {
+    userUid() {
+      return this.$store.getters['auth/getUserUid']
+    },
+  },
   methods: {
     async create() {
       try {
         const db = getFirestore(this.$firebase)
-        await addDoc(collection(db, 'questions'), {
+        const newDoc = doc(collection(db, 'questions'))
+
+        await setDoc(newDoc, {
+          id: newDoc.id,
+          userUid: this.userUid,
           ...this.question,
+          createdAt: new Date(),
         })
+
         this.$store.dispatch('message/setFlashMessage', {
           content: '作成しました',
           timeout: 3000,
