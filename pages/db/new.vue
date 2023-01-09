@@ -29,20 +29,24 @@ export default {
       question: {
         content: '',
         answer: 0,
-        choices: {
-          choice0: {
+        choices: [
+          {
+            index: 0,
             content: '',
           },
-          choice1: {
+          {
+            index: 1,
             content: '',
           },
-          choice2: {
+          {
+            index: 2,
             content: '',
           },
-          choice3: {
+          {
+            index: 3,
             content: '',
           },
-        },
+        ],
       },
     }
   },

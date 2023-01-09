@@ -69,9 +69,10 @@ export default {
   methods: {
     startQuiz() {
       this.$store.dispatch('quiz/reset')
-
-
-      // this.questions.forEach(q=> q.choices.shuffleする)
+      this.questions.forEach(q => {
+        // eslint-disable-next-line no-undef
+        q.choices =  _.shuffle(q.choices)
+      })
       this.$store.dispatch('quiz/startQuiz', {
         questions: this.questions,
         numberOfQuestion: this.numberOfQuestion,

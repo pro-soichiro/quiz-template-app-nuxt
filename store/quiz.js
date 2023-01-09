@@ -35,7 +35,7 @@ export const actions = {
   checkAnswer({commit, state}) {
     let score = 0
     for(let i = 0; state.numberOfQuestion > i; i++) {
-      if (state.questions[i].answer === state.selectAnswers[i]) {
+      if (state.questions[i].answer === state.questions[i].choices[state.selectAnswers[i]].index) {
         score++
       }
     }

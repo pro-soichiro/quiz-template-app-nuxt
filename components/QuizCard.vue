@@ -17,24 +17,12 @@
         :value="answer"
         color="red"
       >
-        <v-list-item>
+        <v-list-item
+          v-for="(choice, i) in choices"
+          :key="i"
+        >
           <v-list-item-content>
-            {{ choices.choice0.content }}
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            {{ choices.choice1.content }}
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            {{ choices.choice2.content }}
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            {{ choices.choice3.content }}
+            {{ choice.content }}
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>

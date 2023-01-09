@@ -18,62 +18,21 @@
           </v-col>
         </v-row>
         <v-radio-group v-model="compQuestion.answer">
-          <div class="d-flex">
-            <v-radio :value='0' />
+          <div
+            v-for="(choice,i) in compQuestion.choices"
+            :key="i"
+            class="d-flex"
+          >
+            <v-radio :value='i' />
             <ValidationProvider
               v-slot="{ errors }"
-              name="選択肢1"
+              :name="'選択肢' + (i+1)"
               rules="required"
               class="flex-grow-1"
             >
               <v-text-field
-                v-model="compQuestion.choices.choice0.content"
-                label="選択肢1"
-                :rules="errors"
-              />
-            </ValidationProvider>
-          </div>
-          <div class="d-flex">
-            <v-radio :value='1' />
-            <ValidationProvider
-              v-slot="{ errors }"
-              name="選択肢2"
-              rules="required"
-              class="flex-grow-1"
-            >
-              <v-text-field
-                v-model="compQuestion.choices.choice1.content"
-                label="選択肢2"
-                :rules="errors"
-              />
-            </ValidationProvider>
-          </div>
-          <div class="d-flex">
-            <v-radio :value='2' />
-            <ValidationProvider
-              v-slot="{ errors }"
-              name="選択肢3"
-              rules="required"
-              class="flex-grow-1"
-            >
-              <v-text-field
-                v-model="compQuestion.choices.choice2.content"
-                label="選択肢3"
-                :rules="errors"
-              />
-            </ValidationProvider>
-          </div>
-          <div class="d-flex">
-            <v-radio :value='3' />
-            <ValidationProvider
-              v-slot="{ errors }"
-              name="選択肢4"
-              rules="required"
-              class="flex-grow-1"
-            >
-              <v-text-field
-                v-model="compQuestion.choices.choice3.content"
-                label="選択肢4"
+                v-model="choice.content"
+                :label="'選択肢' + (i+1)"
                 :rules="errors"
               />
             </ValidationProvider>

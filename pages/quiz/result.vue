@@ -31,7 +31,7 @@
       </v-card-actions>
     </v-card>
     <div
-      v-for="(question, index) in questions" :key="index"
+      v-for="(question, i) in questions" :key="i"
       class="my-1"
     >
       <v-card>
@@ -43,13 +43,13 @@
             <v-col class="text-right">
               <div
                 class="mt-2 mr-4"
-                :class="question.answer === selectAnswers[index]
+                :class="question.answer === question.choices[selectAnswers[i]].index
                 ? 'green--text'
                 : 'red--text'"
               >
                 正解
                 <br>
-                {{ question.choices[`choice${question.answer}`].content }}
+                {{ question.choices.find(choice => choice.index === question.answer).content }}
               </div>
             </v-col>
           </v-row>
@@ -65,12 +65,12 @@
         <v-list disabled>
           <v-subheader>選択肢</v-subheader>
           <v-list-item-group
-            :value="selectAnswers[index]"
+            :value="selectAnswers[i]"
             color="blue lighten-1"
           >
           <v-list-item
-            v-for="(choice, i) in question.choices"
-            :key="i"
+            v-for="(choice, j) in question.choices"
+            :key="j"
           >
             <v-list-item-content>
               {{ choice.content }}
